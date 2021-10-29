@@ -82,7 +82,7 @@ class PantallaInicio extends React.Component {
             alignSelf: "center",
             marginTop: 15,
           }}
-          source={require("./imagenes/market.jpg")}
+          source={require("./imagenes/market.png")}
         />
         <View style={{ marginLeft: 10, marginRight: 10 }}>
           <Input
