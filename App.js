@@ -132,7 +132,7 @@ class listarProductos extends React.Component {
     total: 0,
   };
   static navigationOptions = {
-    title: "Productos",
+    title: "Clientes",
     headerStyle: {
       backgroundColor: "#f4511e",
     },
@@ -183,7 +183,7 @@ class listarProductos extends React.Component {
           }}
         >
           {this.state.total}
-          productos
+          clientes
         </Text>
         <FlatList
           data={this.state.elementos}
@@ -196,17 +196,13 @@ class listarProductos extends React.Component {
               <View
                 style={{ flexDirection: "row", marginTop: 15, marginLeft: 2 }}
               >
-                <Image
-                  style={{ width: 90, height: 90 }}
-                  source={{ uri: item.fotografia }}
-                />
                 <View style={{ height: 80, marginLeft: 5 }}>
                   <Text style={{ flex: 1, fontSize: 18 }}>{item.nombre}</Text>
                   <Text style={{ flex: 1, fontSize: 16, fontWeight: "bold" }}>
-                    ${item.preciodeventa}
+                    ${item.email}
                   </Text>
                   <Text style={{ flex: 1, fontSize: 14 }}>
-                    Existencia {item.cantidad}
+                    Existencia {item.telefono}
                   </Text>
                 </View>
               </View>
@@ -238,16 +234,16 @@ class listarProductos extends React.Component {
 }
 class PaginaDetalle extends React.Component {
   state = {
+    direccion_postal: "",
+    direccion_trabajo: "",
+    email: "",
+    nivel_economico: "",
     nombre: "",
-    descripcion: "",
-    cantidad: "",
-    preciodecosto: "",
-    preciodeventa: "",
-    fotografia: "",
+    telefono: "",
     id: "",
   };
   static navigationOptions = {
-    title: "Editar producto",
+    title: "Editar cliente",
     headerStyle: {
       backgroundColor: "#f4511e",
     },
@@ -258,18 +254,18 @@ class PaginaDetalle extends React.Component {
   };
   Actualizar() {
     fetch(
-      "https://dps-guia10.000webhostapp.com/php/api.php?comando=editar&nombre=" +
+      "https://dps-guia10.000webhostapp.com/php/api.php?comando=editar&direccion_postal=" +
+        this.state.direccion_postal +
+        "&direccion_trabajo=" +
+        this.state.direccion_trabajo +
+        "&email=" +
+        this.state.email +
+        "&nivel_economico=" +
+        this.state.nivel_economico +
+        "&nombre=" +
         this.state.nombre +
-        "&descripcion=" +
-        this.state.descripcion +
-        "&cantidad=" +
-        this.state.cantidad +
-        "&preciodecosto=" +
-        this.state.preciodecosto +
-        "&preciodeventa=" +
-        this.state.preciodeventa +
-        "&fotografia=" +
-        this.state.fotografia +
+        "&telefono=" +
+        this.state.telefono +
         "&id=" +
         this.state.id,
       {
@@ -388,12 +384,12 @@ class PaginaDetalle extends React.Component {
                 // Do your things here
                 console.log("Entro aqui" + navigation.getParam("nombre"));
                 this.setState({
+                  direccion_postal: navigation.getParam("direccion_postal"),
+                  direccion_trabajo: navigation.getParam("direccion_trabajo"),
+                  email: navigation.getParam("email"),
+                  nivel_economico: navigation.getParam("nivel_economico"),
                   nombre: navigation.getParam("nombre"),
-                  descripcion: navigation.getParam("descripcion"),
-                  cantidad: navigation.getParam("cantidad"),
-                  preciodecosto: navigation.getParam("preciodecosto"),
-                  preciodeventa: navigation.getParam("preciodeventa"),
-                  fotografia: navigation.getParam("fotografia"),
+                  telefono: navigation.getParam("telefono"),
                   id: navigation.getParam("id"),
                 });
               }}
@@ -405,43 +401,39 @@ class PaginaDetalle extends React.Component {
               onChangeText={(text) => this.setState({ nombre: text })}
             />
             <Input
-              label="Descripción"
-              value={this.state.descripcion}
+              label="Direccion postal"
+              value={this.state.direccion_postal}
               inputStyle={{ marginTop: 10 }}
-              placeholder="Descripción"
-              onChangeText={(text) => this.setState({ descripcion: text })}
+              placeholder="Direccion postal"
+              onChangeText={(text) => this.setState({ direccion_postal: text })}
             />
             <Input
-              label="Precio de costo"
-              value={this.state.preciodecosto}
+              label="Direccion de trabajo"
+              value={this.state.direccion_trabajo}
               inputStyle={{ marginTop: 10 }}
-              placeholder="Precio de costo"
-              onChangeText={(text) => this.setState({ preciodecosto: text })}
+              placeholder="Direccion de trabajo"
+              onChangeText={(text) => this.setState({ direccion_postal: text })}
             />
             <Input
-              label="Precio de venta"
-              value={this.state.preciodeventa}
+              label="Correo"
+              value={this.state.email}
               inputStyle={{ marginTop: 10 }}
-              placeholder="Precio de venta"
-              onChangeText={(text) => this.setState({ preciodeventa: text })}
+              placeholder="E-mail"
+              onChangeText={(text) => this.setState({ email: text })}
             />
             <Input
-              label="Cantidad"
-              value={this.state.cantidad}
+              label="Nivel economico"
+              value={this.state.nivel_economico}
               inputStyle={{ marginTop: 10 }}
-              placeholder="Cantidad"
-              onChangeText={(text) => this.setState({ cantidad: text })}
+              placeholder="Nivel economico"
+              onChangeText={(text) => this.setState({ nivel_economico: text })}
             />
             <Input
-              label="Fotografía"
-              value={this.state.fotografia}
+              label="Telefono"
+              value={this.state.telefono}
               inputStyle={{ marginTop: 10 }}
-              placeholder="URL de fotografía"
-              onChangeText={(text) => this.setState({ fotografia: text })}
-            />
-            <Image
-              style={{ width: 100, height: 100, alignSelf: "center" }}
-              source={{ uri: this.state.fotografia }}
+              placeholder="Telefono"
+              onChangeText={(text) => this.setState({ telefono: text })}
             />
           </View>
         </ScrollView>
@@ -451,12 +443,12 @@ class PaginaDetalle extends React.Component {
 }
 class PaginaAgregar extends React.Component {
   state = {
+    direccion_postal: "",
+    direccion_trabajo: "",
+    email: "",
+    nivel_economico: "",
     nombre: "",
-    descripcion: "",
-    preciodeventa: "",
-    preciodecosto: "",
-    cantidad: "",
-    fotografia: "",
+    telefono: "",
   };
   static navigationOptions = {
     title: "Agregar producto",
@@ -470,18 +462,18 @@ class PaginaAgregar extends React.Component {
   };
   Guardar() {
     fetch(
-      "https://dps-guia10.000webhostapp.com/php/api.php?comando=agregar&nombre=" +
+      "https://dps-guia10.000webhostapp.com/php/api.php?comando=agregar&direccion_postal=" +
+        this.state.direccion_postal +
+        "&direccion_trabajo=" +
+        this.state.direccion_trabajo +
+        "&email=" +
+        this.state.email +
+        "&nivel_economico=" +
+        this.state.nivel_economico +
+        "&nombre=" +
         this.state.nombre +
-        "&descripcion=" +
-        this.state.descripcion +
-        "&cantidad=" +
-        this.state.cantidad +
-        "&preciodecosto=" +
-        this.state.preciodecosto +
-        "&preciodeventa=" +
-        this.state.preciodeventa +
-        "&fotografia=" +
-        this.state.fotografia,
+        "&telefono=" +
+        this.state.telefono,
       {
         method: "GET",
       }
@@ -511,28 +503,28 @@ class PaginaAgregar extends React.Component {
         />
         <Input
           inputStyle={{ marginTop: 10 }}
-          placeholder="Descripción"
-          onChangeText={(text) => this.setState({ descripcion: text })}
+          placeholder="Direccion postal"
+          onChangeText={(text) => this.setState({ direccion_postal: text })}
         />
         <Input
           inputStyle={{ marginTop: 10 }}
-          placeholder="Precio de costo"
-          onChangeText={(text) => this.setState({ preciodecosto: text })}
+          placeholder="Direccion de trabajo"
+          onChangeText={(text) => this.setState({ direccion_trabajo: text })}
         />
         <Input
           inputStyle={{ marginTop: 10 }}
-          placeholder="Precio de venta"
-          onChangeText={(text) => this.setState({ preciodeventa: text })}
+          placeholder="Correo electronico"
+          onChangeText={(text) => this.setState({ email: text })}
         />
         <Input
           inputStyle={{ marginTop: 10 }}
-          placeholder="Cantidad"
-          onChangeText={(text) => this.setState({ cantidad: text })}
+          placeholder="Nivel economico"
+          onChangeText={(text) => this.setState({ nivel_economico: text })}
         />
         <Input
           inputStyle={{ marginTop: 10 }}
-          placeholder="URL de fotografía"
-          onChangeText={(text) => this.setState({ fotografia: text })}
+          placeholder="Telefono"
+          onChangeText={(text) => this.setState({ telefono: text })}
         />
         <TouchableOpacity
           style={{
